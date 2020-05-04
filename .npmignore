@@ -1,0 +1,11 @@
+mock
+node_modules
+src
+.browserslistrc
+.eslintignore
+.eslintrc
+.gitignore
+babel.config.js
+jest.config.js
+postcss.config.js
+rollup.config.js
