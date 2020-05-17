@@ -6,6 +6,12 @@
   "module": "dist/index.mjs",
   "svelte": "src/index.js",
   "homepage": "https://www.npmjs.com/package/svelte-event-router",
+  "keywords": [
+    "svelte",
+    "svelte router",
+    "router",
+    "state machine"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/qudo-lucas/svelte-router"
