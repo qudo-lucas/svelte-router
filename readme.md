@@ -4,7 +4,7 @@ A simple SPA router that enforces event driven user interfaces.
 Your router does a lot for you. Chose a good one.
 
 ## **Why This One**
-Svelte Event Router is an event driven router. Rather than going to a URL to update the view---while this does work---, you send events to the router. This pattern of development results in well archetected projects that are predictable and less prone to errors.
+Svelte Event Router is an event driven router. Rather than going to a URL to update the view (while this does work), you send events to the router. This pattern of development results in well architected projects that are predictable and less prone to errors.
 
 # **Getting Started**
 To get started, import Router and specify your views.
@@ -38,6 +38,7 @@ const views = {
 The router component serves as a state machine for your views. It catches events and handles rendering the correct component. 
 ```html
 // auth.svelte
+
 <Router
     initial="signin"
     base="auth"
@@ -70,14 +71,14 @@ import signup from "./signup.svelte";
 There are two ways to access a router instance.
 
 
-### **From inside the router**
+### **From inside the router:**
 Each view is passed the router instance as a prop. 
 ```html
 <script>
 export let router;
 </script>
 ```
-### **From outside the router**
+### **From outside the router:**
 The router component exports prop `instance` which can be bound to local state.
 ```html
 <Router
@@ -98,10 +99,11 @@ Events allow you to communicate with a router instance. Events are used to updat
 ``` javascript
 router.send((eventName : String, payload : Any)
 ```
-In this example we send a "signup" event to the router. Since there is a view that matches the event name, the router will swap out the current component with the signup view. The URL will also be transitioned from `/auth/signin` to `auth/signup`.
+In this example we send a "signup" event to the router. Since there is a view that matches the event name, the router will swap out the current component with the signup view. The URL will also be transitioned from `/signin` to `/signup`.
 
 ```html
 // signin.svelte
+
 <button on:click="{signup}">
 
 <script>
@@ -114,9 +116,9 @@ const signup = () => router.send("signup");
 *Router setup for reference*
 ```html
 // auth.svelte
+
 <Router
     initial="signin"
-    base="auth"
     views={{
         signin,
         signup
@@ -132,7 +134,7 @@ import signup from "./signup.svelte";
 
 ## **Listening For Events**
 
-### **Subscribe to every event**
+### **Subscribe to every event:**
 If you want to be notified upon every event, you can subscribe to `router.event`.
 
 ``` javascript
@@ -162,7 +164,6 @@ or
 // auth.svelte
 <Router
     initial="signin"
-    base="auth"
     views={{
         signin,
         signup
@@ -180,14 +181,13 @@ $: console.log(`${event} just happened!`);
 </script>
 ```
 
-### **Subscribe to specific event**
+### **Subscribe to specific event:**
 You can listen for specific events by placing listeners on the router component.
 
 ```html
 // auth.svelte
 <Router
     initial="signin"
-    base="auth"
     views="{{
         signin,
         signup
@@ -204,11 +204,12 @@ const doTheThing = () => console.log("did it.");
 </script>
 ```
 
-### **Custom events**
+### **Custom events:**
 All router events are dispatched on the router component. If you send an event that doesn't have a corresponding view, the router will stay where it is and forward the event to the parent.
 
 ``` html
 // signin.svelte
+
 <script>
 export let router;
 
@@ -220,7 +221,6 @@ router.send("success", { payload });
 // auth.svelte
 <Router
     initial="signin"
-    base="auth"
     views="{{
         signin,
         signup
@@ -231,23 +231,46 @@ router.send("success", { payload });
 <script>
 import Router from "svelte-event-router";
 
-let router;
+export let router;
 
 const doTheThing = (event) => {
     const payload = event.detail.payload;
 
     console.log(payload);
+
+    // transition parent router
+    return router.send("home");
 }
 </script>
 ```
 
+# **Nested Routers**
+Sometimes you need routers inside routers inside routers inside routers. Svelte Event Route makes it easy and keep track of your router instances. Add a nested router by adding a router to one of your existing views. The only difference between setting up a nested router and top level router is that you need to supply a base.
 
+```html
+<Router
+    {base}
+    initial="signin"
+    views={{
+        signin,
+        signup
+    }} 
+/>
+<script>
+import Router from "svelte-event-router";
 
+// Views
+import signin from "./views/signin.svelte";
+import signup from "./views/signup.svelte";
 
+// This tells the router to live at: url.com/#/users/auth/[here]
+const base = "users/auth";
+</script>
 
+```
 
+# **Questions?**
 
-
-
+Find me on [Twitter](https://twitter.com/qudolucas)
 
 
