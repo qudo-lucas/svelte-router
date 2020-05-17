@@ -35,6 +35,11 @@
     function children(element) {
         return Array.from(element.childNodes);
     }
+    function custom_event(type, detail) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, false, false, detail);
+        return e;
+    }
 
     let current_component;
     function set_current_component(component) {
@@ -47,6 +52,20 @@
     }
     function onMount(fn) {
         get_current_component().$$.on_mount.push(fn);
+    }
+    function createEventDispatcher() {
+        const component = get_current_component();
+        return (type, detail) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail);
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+            }
+        };
     }
 
     const dirty_components = [];
@@ -338,10 +357,12 @@
     }
 
     function instance($$self, $$props, $$invalidate) {
+    	const dispatch = createEventDispatcher();
     	let { base = "" } = $$props;
     	let { initial } = $$props;
     	let { views = {} } = $$props;
     	let _event;
+    	let event;
     	let component;
     	let currentName;
 
@@ -378,10 +399,13 @@
     			let url = `#/${base}${base ? "/" : ""}${name}`;
     			sanitize(name);
 
+    			// Send the same event as a svelte event
+    			dispatch(name, data);
+
+    			dispatch("event", { name, event });
+
     			// Test if we have a component for this url
     			if (!urls.has(url)) {
-    				console.log(`Router: Non-existent event "${name}"`);
-    				console.log(`Router: Available events for this router`, Object.keys(views));
     				$$invalidate(0, component);
     				return;
     			}
