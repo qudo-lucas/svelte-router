@@ -190,6 +190,7 @@ or
 // auth.svelte
 <Router
     initial="signin"
+    bind:instance="{router}"
     views={{
         signin,
         signup
@@ -245,6 +246,7 @@ router.send("success", { payload });
 
 ```html
 // auth.svelte
+
 <Router
     initial="signin"
     views="{{
