@@ -52,7 +52,6 @@ const router = {
 
         // Send the same event as a svelte event
         dispatch(name, data);
-        dispatch("event", { name, event });
         
         // Test if we have a component for this url
         if(!urls.has(url)) {
@@ -79,7 +78,8 @@ const router = {
         // whatever state it hadthe last time it got an event.
         history.pushState({
             _event,
-            data
+            data,
+            name,
         }, name, url);
 
         // Pull it off the browser history to make it available in component
@@ -91,5 +91,6 @@ window.onpopstate = () => read();
 
 onMount(() => read());
 
+export let instance = router;
 
 </script>
