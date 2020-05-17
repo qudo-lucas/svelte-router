@@ -101,6 +101,7 @@ router.send((eventName : String, payload : Any)
 ```
 In this example we send a "signup" event to the router. Since there is a view that matches the event name, the router will swap out the current component with the signup view. The URL will also be transitioned from `/signin` to `/signup`.
 
+### **From inside the router:**
 ```html
 // signin.svelte
 
@@ -131,6 +132,31 @@ import signin from "./signin.svelte";
 import signup from "./signup.svelte";
 </script>
 ```
+
+### **From outside the router:**
+```html
+// auth.svelte
+
+<Router
+    initial="signin"
+    bind:instance="{router}"
+    views={{
+        signin,
+        signup
+    }}
+/>
+
+<script>
+import Router from "svelte-event-router";
+import signin from "./signin.svelte";
+import signup from "./signup.svelte";
+
+let router;
+
+router.send("signup");
+</script>
+```
+
 
 ## **Listening For Events**
 
