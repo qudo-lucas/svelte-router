@@ -42,10 +42,10 @@ The router component serves as a state machine for your views. It catches events
 <Router
     initial="signin"
     base="auth"
-    views={{
+    views="{{
         signin,
-        signup
-    }}
+        signup,
+    }}"
 />
 
 <script>
@@ -71,14 +71,16 @@ import signup from "./signup.svelte";
 There are two ways to access a router instance.
 
 
-### **From inside the router:**
+
+
+**From inside a view:**
 Each view is passed the router instance as a prop. 
 ```html
 <script>
 export let router;
 </script>
 ```
-### **From outside the router:**
+**From outside the router:**
 The router component exports an `instance` prop which can be bound to local state.
 ```html
 <Router
@@ -91,6 +93,9 @@ import Router from "svelte-event-router";
 let router;
 </script>
 ```
+
+
+
 
 # **Events**
 Events allow you to communicate with a router instance. Events are used to update the current view, or communicate with other services.
@@ -120,10 +125,10 @@ const signup = () => router.send("signup");
 
 <Router
     initial="signin"
-    views={{
+    views="{{
         signin,
-        signup
-    }}
+        signup,
+    }}"
 />
 
 <script>
@@ -140,10 +145,10 @@ import signup from "./signup.svelte";
 <Router
     initial="signin"
     bind:instance="{router}"
-    views={{
+    views="{{
         signin,
-        signup
-    }}
+        signup,
+    }}"
 />
 
 <script>
@@ -175,7 +180,7 @@ router.event = {
     _event : Any,
 }
 ```
-
+**From inside the router:**
 ``` html
 <script>
 export let router;
@@ -185,16 +190,18 @@ $: ({ event } = router);
 $: console.log(`${event} just happened!`);
 </script>
 ```
-or
+
+
+**From outside the router:**
 ```html
 // auth.svelte
 <Router
     initial="signin"
     bind:instance="{router}"
-    views={{
+    views="{{
         signin,
-        signup
-    }}
+        signup,
+    }}"
 />
 
 <script>
@@ -217,7 +224,7 @@ You can listen for specific events by placing listeners on the router component.
     initial="signin"
     views="{{
         signin,
-        signup
+        signup,
     }}"
     on:signup="{doTheThing}"
 />
@@ -251,7 +258,7 @@ router.send("success", { payload });
     initial="signin"
     views="{{
         signin,
-        signup
+        signup,
     }}"
     on:success="{doTheThing}"
 />
@@ -265,9 +272,6 @@ const doTheThing = (event) => {
     const payload = event.detail.payload;
 
     console.log(payload);
-
-    // transition parent router
-    return router.send("home");
 }
 </script>
 ```
@@ -279,10 +283,10 @@ Sometimes you need routers inside routers inside routers inside routers. Svelte 
 <Router
     {base}
     initial="signin"
-    views={{
+    views="{{
         signin,
         signup
-    }} 
+    }}"
 />
 <script>
 import Router from "svelte-event-router";
@@ -291,8 +295,15 @@ import Router from "svelte-event-router";
 import signin from "./views/signin.svelte";
 import signup from "./views/signup.svelte";
 
+export let router;
+
 // This tells the router to live at: url.com/#/users/auth/[here]
 const base = "users/auth";
+
+const doTheThing = (event) => {
+    // transition parent router
+    return router.send("home");
+}
 </script>
 
 ```
