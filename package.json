@@ -1,10 +1,6 @@
 {
   "name": "svelte-event-router",
-<<<<<<< HEAD
-  "version": "1.0.2",
-=======
   "version": "1.0.6",
->>>>>>> 96cdec2bee147e1e19b85d90b733b2ec53878382
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
