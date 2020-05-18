@@ -1,10 +1,10 @@
 # **Svelte Event Router**
 
-A simple SPA router that enforces event driven user interfaces.
-Your router does a lot for you. Chose a good one.
+A simple SPA router that enforces event-driven user interfaces.
+Your router does a lot for you. Choose a good one.
 
 ## **Why This One**
-Svelte Event Router is an event driven router. Rather than going to a URL to update the view (while this does work), you send events to the router. This pattern of development results in well architected projects that are predictable and less prone to errors.
+Svelte Event Router is an event-driven router. Rather than going to a URL to update the view (while this does work), you send events to the router. This pattern of development results in well-architected projects that are predictable and less prone to errors.
 
 # **Getting Started**
 To get started, import Router and specify your views.
@@ -79,7 +79,7 @@ export let router;
 </script>
 ```
 ### **From outside the router:**
-The router component exports prop `instance` which can be bound to local state.
+The router component exports an `instance` prop which can be bound to local state.
 ```html
 <Router
     bind:instance="{router}"
@@ -161,7 +161,7 @@ router.send("signup");
 ## **Listening For Events**
 
 ### **Subscribe to every event:**
-If you want to be notified upon every event, you can subscribe to `router.event`.
+If you want to be notified of every event, you can subscribe to `router.event`.
 
 ``` javascript
 router.event = {
