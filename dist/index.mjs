@@ -427,13 +427,12 @@ function instance_1($$self, $$props, $$invalidate) {
 
 	window.onpopstate = () => read();
 	onMount(() => read());
-	let { instance = router } = $$props;
+	const instance = router;
 
 	$$self.$set = $$props => {
 		if ("base" in $$props) $$invalidate(3, base = $$props.base);
 		if ("initial" in $$props) $$invalidate(2, initial = $$props.initial);
 		if ("views" in $$props) $$invalidate(4, views = $$props.views);
-		if ("instance" in $$props) $$invalidate(5, instance = $$props.instance);
 	};
 
 	return [component, router, initial, base, views, instance];
@@ -449,6 +448,10 @@ class Router extends SvelteComponent {
 			views: 4,
 			instance: 5
 		});
+	}
+
+	get instance() {
+		return this.$$.ctx[5];
 	}
 }
 
