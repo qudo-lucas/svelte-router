@@ -29,6 +29,11 @@ function empty() {
 function children(element) {
     return Array.from(element.childNodes);
 }
+function custom_event(type, detail) {
+    const e = document.createEvent('CustomEvent');
+    e.initCustomEvent(type, false, false, detail);
+    return e;
+}
 
 let current_component;
 function set_current_component(component) {
@@ -41,6 +46,20 @@ function get_current_component() {
 }
 function onMount(fn) {
     get_current_component().$$.on_mount.push(fn);
+}
+function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail) => {
+        const callbacks = component.$$.callbacks[type];
+        if (callbacks) {
+            // TODO are there situations where events could be dispatched
+            // in a server (non-DOM) environment?
+            const event = custom_event(type, detail);
+            callbacks.slice().forEach(fn => {
+                fn.call(component, event);
+            });
+        }
+    };
 }
 
 const dirty_components = [];
@@ -331,7 +350,8 @@ function create_fragment(ctx) {
 	};
 }
 
-function instance($$self, $$props, $$invalidate) {
+function instance_1($$self, $$props, $$invalidate) {
+	const dispatch = createEventDispatcher();
 	let { base = "" } = $$props;
 	let { initial } = $$props;
 	let { views = {} } = $$props;
@@ -372,10 +392,11 @@ function instance($$self, $$props, $$invalidate) {
 			let url = `#/${base}${base ? "/" : ""}${name}`;
 			sanitize(name);
 
+			// Send the same event as a svelte event
+			dispatch(name, data);
+
 			// Test if we have a component for this url
 			if (!urls.has(url)) {
-				console.log(`Router: Non-existent event "${name}"`);
-				console.log(`Router: Available events for this router`, Object.keys(views));
 				$$invalidate(0, component);
 				return;
 			}
@@ -397,7 +418,7 @@ function instance($$self, $$props, $$invalidate) {
 			// We do this so that in theory, you could hit the 
 			// browser back button and the page would load with 
 			// whatever state it hadthe last time it got an event.
-			history.pushState({ _event, data }, name, url);
+			history.pushState({ _event, data, name }, name, url);
 
 			// Pull it off the browser history to make it available in component
 			$$invalidate(1, router.event = history.state, router);
@@ -406,20 +427,28 @@ function instance($$self, $$props, $$invalidate) {
 
 	window.onpopstate = () => read();
 	onMount(() => read());
+	let { instance = router } = $$props;
 
 	$$self.$set = $$props => {
 		if ("base" in $$props) $$invalidate(3, base = $$props.base);
 		if ("initial" in $$props) $$invalidate(2, initial = $$props.initial);
 		if ("views" in $$props) $$invalidate(4, views = $$props.views);
+		if ("instance" in $$props) $$invalidate(5, instance = $$props.instance);
 	};
 
-	return [component, router, initial, base, views];
+	return [component, router, initial, base, views, instance];
 }
 
 class Router extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance, create_fragment, safe_not_equal, { base: 3, initial: 2, views: 4 });
+
+		init(this, options, instance_1, create_fragment, safe_not_equal, {
+			base: 3,
+			initial: 2,
+			views: 4,
+			instance: 5
+		});
 	}
 }
 

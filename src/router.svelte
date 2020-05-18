@@ -1,6 +1,8 @@
 <svelte:component this={component} {router} />
 <script>
-import { onMount } from "svelte";
+import { onMount, createEventDispatcher } from "svelte";
+
+const dispatch = createEventDispatcher();
 
 export let base = "";
 export let initial;
@@ -47,11 +49,12 @@ const router = {
         let url = `#/${base}${base ? "/" : ""}${name}`;
         
         sanitize(name);
+
+        // Send the same event as a svelte event
+        dispatch(name, data);
         
         // Test if we have a component for this url
         if(!urls.has(url)) {
-            console.log(`Router: Non-existent event "${name}"`);
-            console.log(`Router: Available events for this router`, Object.keys(views));
             component = component;
             
             return;
@@ -68,7 +71,6 @@ const router = {
         component = views[name];
         currentName = name;
 
-
         // Add the url to the address bar.
         // Slap the event on the browser history real quick:
         // We do this so that in theory, you could hit the 
@@ -76,7 +78,8 @@ const router = {
         // whatever state it hadthe last time it got an event.
         history.pushState({
             _event,
-            data
+            data,
+            name,
         }, name, url);
 
         // Pull it off the browser history to make it available in component
@@ -87,4 +90,7 @@ const router = {
 window.onpopstate = () => read();
 
 onMount(() => read());
+
+export let instance = router;
+
 </script>

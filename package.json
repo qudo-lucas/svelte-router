@@ -1,10 +1,30 @@
 {
   "name": "svelte-event-router",
+<<<<<<< HEAD
   "version": "1.0.2",
+=======
+  "version": "1.0.6",
+>>>>>>> 96cdec2bee147e1e19b85d90b733b2ec53878382
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "svelte": "src/index.js",
+  "homepage": "https://www.npmjs.com/package/svelte-event-router",
+  "keywords": [
+    "svelte",
+    "svelte router",
+    "router",
+    "state machine"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qudo-lucas/svelte-router"
+  },
+  "author": {
+    "name": "Lucas Hugdahl",
+    "email": "lucashugdahl@gmail.com",
+    "url": "https://lucashugdahl.com"
+  },
   "scripts": {
     "lint": "npx eslint \"src/**/*.svelte\" \"src/**/*.js\"",
     "fix": "npx eslint --fix \"src/**/*.svelte\" \"src/**/*.js\"",
@@ -21,9 +41,7 @@
     "watch-mock": "npm run watch --prefix mock",
     "start": "concurrently 'npm:watch-*'"
   },
-  "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/qudo-lucas/ShockyBuilder#readme",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-transform-runtime": "^7.9.6",
