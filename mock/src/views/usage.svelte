@@ -1,10 +1,14 @@
-<div class="view" bind:this={view}>
-    <div class="demo-card-square mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__supporting-text">
-            <div class="py-4">
-                <h3>Usage</h3>
-                <hr>
-                <pre>
+<View
+{router}
+title="Usage"
+next="events"
+nextName="EVENTS"
+back="home"
+>   
+<div>
+<h6 class="mb-0"><strong>Getting Started</strong></h6>
+<p>To get started, import Router and specify your views.</p>
+<pre>
                     <code class="language-html">{
 `
 <div class="container">
@@ -12,7 +16,7 @@
 </div>
 
 <script>
-import Router from "svelte-router";
+import Router from "svelte-event-router";
 
 // Views
 import home from "./views/home.svelte";
@@ -52,7 +56,7 @@ const views = {
                     <td>
                         <strong>String (required)</strong>
                     </td>
-                    <td>The initial route to load. This will also be the fallback URL for when a user tries to visit an invalid route on page load. After a page it loaded, invalid routes will fail silently.</td>
+                    <td>The initial route to load. This will also be the fallback URL for when a user tries to visit an invalid route on page load. After a page is loaded, invalid routes/events will fail silently.</td>
                 </tr>
                 <tr>
                     <td>
@@ -78,37 +82,13 @@ const views = {
                 </tr>
                 </tbody>
             </table>
+</View>
 
-        </div>
-        <div class="mdl-card__actions mdl-card--border d-flex justify-content-between">
-            <button on:click={() => router.send("home")} class="
-                mdl-button
-                mdl-js-button
-                mdl-button--raised">
-            Back
-            </button>
-            <button on:click={() => router.send("events")} class="
-                mdl-button
-                mdl-js-button
-                mdl-button--raised
-                mdl-button--colored
-                bg-orange">
-            Events
-            </button>
-        </div>
-    </div>
-</div>
 <script>
+import View from "../components/view.svelte"
 export let router;
-import { onMount } from "svelte";
-
-let view;
-
-onMount(() => {
-    var script= document.createElement('script');
-    script.src= 'prism.js';
-    view.appendChild(script);
-});
-
 </script>
 
+<style>
+
+</style>

@@ -6,6 +6,7 @@ import livereload from "rollup-plugin-livereload";
 import json from "@rollup/plugin-json";
 import copy from "rollup-plugin-copy";
 import injectProcessEnv from "rollup-plugin-inject-process-env";
+import scss from "rollup-plugin-scss"
 
 const INPUT_DIR = "src";
 const OUTPUT_DIR = "build";
@@ -35,12 +36,15 @@ export default {
                 { src : `${INPUT_DIR}/public/**/*`, dest : OUTPUT_DIR },
             ],
         }),
+        scss({
+            output : `${OUTPUT_DIR}/bundle.css`,
+        }),
         json(),
         injectProcessEnv({
             NODE_ENV : production,
         }),
-        // !production && livereload(`${OUTPUT_DIR}`),
-        // !production && serve(),
+        !production && livereload(`${OUTPUT_DIR}`),
+        !production && serve(),
     ],
 };
 

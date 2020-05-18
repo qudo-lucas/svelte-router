@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap');
+
+body,html {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+}
+
+.t-light {
+  font-weight: var(--font-light);
+}
+.t-regular {
+  font-weight: var(--font-regular);
+}
+.t-bold {
+  font-weight: var(--font-bold);
+}
+
+.t-huge {
+  font-size: var(--font-size-huge);
+}
+
+.t-micro {
+  font-size: var(--font-size-micro) !important;
+  font-weight: var(font-bold);
+  margin: .1rem 0;
+}
+
+.t-faint {
+  opacity: .7;
+}
+
+.t-console {
+  font-family: 'Inconsolata', monospace;
+}
+
+p,td,th,span,li,a,button {
+  letter-spacing: .04em;
+  font-size: var(--font-size-base);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+h2 {
+  font-size: var(--font-size-h2);
+}
+h3 {
+  font-size: var(--font-size-h3);
+}

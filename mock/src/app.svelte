@@ -12,7 +12,7 @@
 </div>
 
 <script>
-import Router from "svelte-router";
+import Router from "svelte-event-router";
 
 // Views
 import home from "./views/home.svelte";
@@ -22,17 +22,12 @@ import nested from "./views/nested.svelte";
 </script>
 
 <style>
-:global(.view) {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.container {
+  box-sizing: border-box;
 }
-
 :global(.mdl-card) {
   width: 90vw !important;
-  max-width: 600px;
+  max-width: 800px;
 }
 :global(.mdl-card__supporting-text) {
   width: 100% !important;

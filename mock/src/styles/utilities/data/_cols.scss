@@ -1,0 +1,97 @@
+$map-cols: (
+  col: (
+    is-responsive: true,
+    default: (
+      flex-grow: 1,
+      box-sizing: border-box,
+      padding-left: var(--spacer),
+      padding-right: var(--spacer)
+    ),
+    modifiers: (
+      1: (
+        flex: 0 0  #{percentage(1/12)},
+        max-width: percentage(1/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      2: (
+        flex: 0 0  #{percentage(2/12)},
+        max-width: percentage(2/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      3: (
+        flex: 0 0  #{percentage(3/12)},
+        max-width: percentage(3/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      4: (
+        flex: 0 0  #{percentage(4/12)},
+        max-width: percentage(4/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      5: (
+        flex: 0 0  #{percentage(5/12)},
+        max-width: percentage(5/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      6: (
+        flex: 0 0  #{percentage(6/12)},
+        max-width: percentage(6/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      7: (
+        flex: 0 0  #{percentage(7/12)},
+        max-width: percentage(7/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      8: (
+        flex: 0 0  #{percentage(8/12)},
+        max-width: percentage(8/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      9: (
+        flex: 0 0  #{percentage(9/12)},
+        max-width: percentage(9/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      10: (
+        flex: 0 0  #{percentage(10/12)},
+        max-width: percentage(10/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      11: (
+        flex: 0 0  #{percentage(11/12)},
+        max-width: percentage(11/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+      12: (
+        flex: 0 0  #{percentage(12/12)},
+        max-width: percentage(12/12),
+        box-sizing: border-box,
+        padding-left: var(--spacer),
+        padding-right: var(--spacer)
+      ),
+    )
+  )
+)

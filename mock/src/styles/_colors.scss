@@ -1,0 +1,12 @@
+
+// not finished
+body {
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  transition: color .3s ease-in-out, background-color .3s ease-in-out;
+
+  &.is-light {
+    --color-base-current: var(--color-base-light);
+    --color-accent-current:  var(--color-base-dark);
+  }
+}
