@@ -1,0 +1,33 @@
+button {
+    appearance: none;
+    color: var(--color-text-primary);
+    border-width: 0;
+}
+
+.button {
+    appearance: none;
+    background: var(--color-card);
+    border-width: 0;
+    width: 100%;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.button--clean {
+    appearance: none;
+    background: transparent;
+    padding: 0;
+    border-width: 0;
+}
+
+.button--small {
+    padding: .5rem 1rem;
+    width: auto;
+}
+
+.button--icon {
+    padding: 0;
+    height: 1.75rem;
+    border: none;
+    background-color: transparent;
+}

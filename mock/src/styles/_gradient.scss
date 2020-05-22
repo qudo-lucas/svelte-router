@@ -1,0 +1,10 @@
+.gradient-bottom:after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    height: 4rem;
+    width: 100%;
+    background: linear-gradient(transparent 10%,  black 90%);
+    pointer-events: none;
+}   

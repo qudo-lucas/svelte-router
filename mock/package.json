@@ -1,18 +1,18 @@
 {
-  "name": "savannahcms",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "svelte-router-docs",
+  "version": "1.0.1",
   "scripts": {
     "lint": "npx eslint \"src/**/*.svelte\" \"src/**/*.js\"",
     "fix": "npx eslint --fix \"src/**/*.svelte\" \"src/**/*.js\"",
     "test": "npm run lint && jest src",
     "autobuild": "npm run build -- -w",
     "serve": "sirv build --dev",
+    "watch": "rollup -c -w",
     "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "now": "now",
+    "deploy": "now deploy"
   },
-  "author": "",
+  "author": "Lucas Hugdahl",
   "license": "ISC",
   "homepage": "https://github.com/qudo-lucas/ShockyBuilder#readme",
   "devDependencies": {
@@ -65,13 +65,12 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/runtime": "^7.9.6",
     "babel-plugin-transform-es2017-object-entries": "0.0.5",
-    "core-js": "^3.6.5",
     "flipping": "^1.1.0",
     "js-cookie": "^2.2.1",
     "mongoose": "^5.9.11",
     "rollup-plugin-dynamic-import-variables": "^1.0.0",
     "rollup-plugin-glob-import": "^0.4.5",
-    "svelte-router": "file:..",
+    "svelte-event-router": "^1.0.2",
     "tailwindcss": "^1.4.4"
   }
 }

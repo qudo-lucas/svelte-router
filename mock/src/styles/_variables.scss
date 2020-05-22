@@ -1,0 +1,69 @@
+//SCSS map used for building responsive utility classes
+$breakpoints: (
+	"sm": 576px,
+	"md": 577px,
+	"lg": 769px,
+	"xl": 993px,
+	"xxl": 1200px
+);
+
+:root {
+	--breakpoint-xs: 0;
+	--breakpoint-sm: 576px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 992px;
+	--breakpoint-xl: 1200px;
+
+	--font-family: "Open Sans", sans-serif;
+	--font-light: 300;
+	--font-regular: 400;
+	--font-bold: 700;
+	--font-size-huge: 4rem;
+	--font-size-h1: 2.1rem;
+	--font-size-h2: 18px;
+	--font-size-h3: 16px;
+	--font-size-base: 14px;
+	--font-size-small: 14px;
+	--font-size-micro: 10px;
+	--spacer: var(--font-size-base);
+	--border-radius: 7px;
+	--grid-gap: 30px;
+
+	--dark-4: rgb(0, 0, 0);
+	--dark-3: #2d2d2d;
+	--dark-2: #2c2c2b;
+	--dark-1: #424242;
+	--light-4: rgb(255, 255, 255);
+	--light-3: #d8d8d8;
+	--light-2: #afaeae;
+	--light-1: #818181;
+
+	--white: rgb(240, 240, 240);
+	--green: #28c4ae;
+	--blue: #1c4698;
+
+	--success: #23bd23;
+	--warning: #f1a708;
+	--error: #e95b5b;
+	--alert: #20a7ee;
+
+	--green: #35ad09;
+	--yellow: #df9100;
+	--purple: #8b0a8d;
+	--blue: #0066a1;
+
+
+
+	--color-text-primary: var(--light-4);
+	--color-text-inverted: var(--light-3);
+	--color-background: rgb(30,136,229);
+	--color-card: var(--dark-3);
+
+	--box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.158);
+
+	--z-1: 1;
+	--z-2: 100;
+	--z-3: 500;
+	--z-4: 900;
+	--z-5: 1000;
+}

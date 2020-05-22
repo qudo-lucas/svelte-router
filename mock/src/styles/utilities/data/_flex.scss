@@ -1,0 +1,59 @@
+$map-flex: (
+	d: (
+		is-responsive: true,
+		default: false,
+		modifiers: (
+			flex: (
+				display: flex
+			)
+		)
+	),
+	flex: (
+		is-responsive: true,
+		default: false,
+		modifiers: (
+			column: (
+				flex-direction: column
+			),
+			row: (
+				flex-direction: row
+			)
+		)
+	),
+	justify-content: (
+		is-responsive: true,
+		default: false,
+		modifiers: (
+			center: (
+				justify-content: center
+			),
+			end: (
+				justify-content: flex-end
+			),
+			between: (
+				justify-content: space-between
+			),
+			evenly: (
+				justify-content: space-evenly
+			),
+			start: (
+				justify-content: flex-start
+			)
+		)
+	),
+	align-items: (
+		is-responsive: true,
+		default: false,
+		modifiers: (
+			center: (
+				align-items: center
+			),
+			end: (
+				align-items: flex-end
+			),
+			start: (
+				align-items: flex-start
+			)
+		)
+	)
+);

@@ -1,0 +1,26 @@
+$map-colors: (
+  bg: (
+    is-responsive: true,
+    default: false,
+    modifiers: (
+      dark: (
+        background: var(--black)
+      ),
+      light: (
+        background: var(--white)
+      )
+    )
+  ),
+  text: (
+    is-responsive: true,
+    default: false,
+    modifiers: (
+      dark: (
+        color: var(--black)
+      ),
+      light: (
+        color: var(--white)
+      )
+    )
+  ),
+);

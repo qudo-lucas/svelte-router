@@ -1,0 +1,12 @@
+$map-row: (
+  row: (
+    is-responsive: false,
+    default: (
+      display: flex,
+      flex-wrap: wrap,
+      box-sizing: border-box,
+      margin-left: calc(-1 * var(--spacer)),
+      margin-right: calc(-1 * var(--spacer))
+    ),
+  )
+)

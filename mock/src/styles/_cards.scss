@@ -1,0 +1,40 @@
+.card {
+  background: var(--color-card);
+  border-radius: var(--border-radius);
+  padding: .5rem 1rem;
+  min-height: 45.78px;
+  box-sizing: border-box;
+}
+
+.card--item {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1rem;
+}
+
+*[class*='card--accent-'] {
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0.5rem;
+    }   
+}
+
+.card--accent-purple {
+  &:after {
+    background: var(--purple);
+  }
+}
+
+.card--accent-green {
+  &:after {
+    background: var(--green);
+  }
+}

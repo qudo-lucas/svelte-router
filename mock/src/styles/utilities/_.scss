@@ -1,0 +1,48 @@
+:root {
+  //This is the utility class builder
+  //To add additional classes, follow the pattern in ./data
+  $responsive: ();
+  @import "./data/";
+  
+  @mixin buildSelector($map, $css-selector) {
+    // add default css if any
+    @if (map-get($map, default)) {
+      .#{$css-selector} {
+        @each $property, $value in map-get($map, default) {
+          #{$property}:$value;
+        }
+      }
+    }
+  
+    // add all modifier css if any
+    @if (map-get($map, modifiers)) {
+      @each $modifierName, $modifierData in map-get($map, modifiers) {
+        .#{$css-selector}-#{$modifierName} {
+          @each $property, $value in $modifierData {
+            #{$property}:$value;
+          }
+        }
+      }
+    }
+  }
+  
+  //build all base classes
+  @each $className, $classData in $data {
+    @include buildSelector($classData, #{$className});
+    @if (map-get($classData, is-responsive) ) {
+      $responsive: map-merge($responsive, ($className: $classData))
+    }
+  }
+  
+  
+  //Create only one media-query per breakpoint.
+  //Wrap in breakpoint media query
+  //Add the breakpoint name to the css selector
+  @each $bp, $bpVal in $breakpoints {
+    @media (min-width: $bpVal) {
+      @each $className, $classData in $responsive {
+        @include buildSelector($classData, #{$className}-#{$bp})
+      }  
+    }
+  }
+}  

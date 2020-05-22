@@ -92,6 +92,5 @@ window.onpopstate = () => read();
 
 onMount(() => read());
 
-export let instance = router;
-
+export const instance = router;
 </script>
