@@ -2,7 +2,7 @@ var app = (function () {
     'use strict';
 
     (function() {
-        const env = {"NODE_ENV":false};
+        const env = {"NODE_ENV":true};
         try {
             if (process) {
                 process.env = Object.assign({}, process.env);
@@ -427,6 +427,8 @@ var app = (function () {
 
     			// Send the same event as a svelte event
     			dispatch(name, data);
+
+    			dispatch("event", { name, data });
 
     			// Test if we have a component for this url
     			if (!urls.has(url)) {

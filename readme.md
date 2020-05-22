@@ -161,8 +161,6 @@ router.send("signup");
 ## **Listening For Events**
 
 ### **Subscribe to every event:**
-If you want to be notified upon every event, you can subscribe to `router.event`.
-
 ``` javascript
 router.event = {
     // Name of the last event
@@ -175,7 +173,8 @@ router.event = {
     _event : Any,
 }
 ```
-
+### **From inside the router:**
+Subscribe to `router.event` from within a view.
 ``` html
 <script>
 export let router;
@@ -185,12 +184,15 @@ $: ({ event } = router);
 $: console.log(`${event} just happened!`);
 </script>
 ```
-or
+
+### **From outside the router:**
+Add an `event` event listener on the router instance. 
 ```html
 // auth.svelte
 <Router
     initial="signin"
     bind:instance="{router}"
+    on:event={handleEvent}
     views={{
         signin,
         signup
@@ -203,8 +205,9 @@ import Router from "svelte-event-router";
 let router;
 
 // Subscibe to all events
-$: ({ event } = router);
-$: console.log(`${event} just happened!`);
+const handleEvent = (event) => {
+    console.log(event.detail);
+}
 </script>
 ```
 

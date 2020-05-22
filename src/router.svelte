@@ -52,6 +52,7 @@ const router = {
 
         // Send the same event as a svelte event
         dispatch(name, data);
+        dispatch("event", { name, data });
         
         // Test if we have a component for this url
         if(!urls.has(url)) {
