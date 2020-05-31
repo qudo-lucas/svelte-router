@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svelte Event Router</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="prism.css" />
+</head>
+<body>
+    <main class="main">
+        <div class="nav">
+            <div class="links">
+                <h4 class="title">CHAPTERS</h4>
+                {nav}
+            </div>
+        </div>
+        <div class="chapters">
+            <div class="intro">
+                <h1>Svelte Event Router</h1>
+                <p>A simple SPA router that enforces event-driven user interfaces. Your router does a lot for you. Choose a good one.</p>
+                <pre class=" language-bash"><code class=" language-bash">npm install svelte-event-router</code></pre>
+            </div>
+            {chapters}
+        </div>
+    </main>
+
+    <script src="prism.js"></script>
+</body>
+</html>

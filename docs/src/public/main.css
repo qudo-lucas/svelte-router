@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;700&display=swap');
+
+html,body {
+    margin: 0 auto;
+    font-family: 'Overpass', sans-serif;
+    font-size: 16px;
+    color: #424242;
+}
+
+* { box-sizing: border-box }
+
+h1,h2,h3,h4,p,a,button,a {
+    font-weight: 400;
+}
+
+h1,h2,h3 {
+    font-weight: 700;
+    border-collapse: collapse;
+    tab-size: 2;
+    box-sizing: inherit;
+    position: relative;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    margin-top: 0;
+}
+
+p {
+    font-size: 1.2rem;
+    border-collapse: collapse;
+    tab-size: 2;
+    box-sizing: inherit;
+    padding: 0;
+    margin: 1em 0;
+}
+
+a {
+    appearance: none;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+a:active {
+    color: inherit;
+}
+
+
+.main {
+    margin: auto;
+    display: grid;
+    grid-template: 1fr / 15% 1fr;
+    min-height: 100vh;
+    letter-spacing: .01em;
+}
+
+.nav {
+    min-height: 100%;
+    color: white !important;
+    background: #666678;
+    padding: 1.75rem;
+}
+
+.nav .links {
+    position: sticky;
+    top: 1.75rem;
+}
+
+.nav h4 {
+    border-collapse: collapse;
+    line-height: 1.2;
+    box-sizing: inherit;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 0 0 .8rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+.nav a {
+    color: white;
+    display: block;
+    margin: .5rem 0;
+}
+
+.intro {
+    padding-bottom: 3rem;
+}
+
+.chapters {
+    padding: 3rem;
+    max-width: 60rem;
+}
+
+.chapters h1 {
+    margin-top: 2rem;
+    padding: 2rem 1.6rem 4rem 0.2rem;
+    border-top: 4px solid #6767785b;
+}
+
+.chapters h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.chapters h3 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.chapters .intro h1 {
+    padding: 0;
+    border-top: 0;
+}
+
+

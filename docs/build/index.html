@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svelte Event Router</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="prism.css" />
+</head>
+<body>
+    <main class="main">
+        <div class="nav">
+            <div class="links">
+                <h4 class="title">CHAPTERS</h4>
+                <a href="#getting-started">Getting Started</a><a href="#sending-events">Sending Events</a><a href="#router-store">Router Store</a>
+            </div>
+        </div>
+        <div class="chapters">
+            <div class="intro">
+                <h1>Svelte Event Router</h1>
+                <p>A simple SPA router that enforces event-driven user interfaces. Your router does a lot for you. Choose a good one.</p>
+                <pre class=" language-bash"><code class=" language-bash">npm install svelte-event-router</code></pre>
+            </div>
+            
+            <div id="getting-started" class="chapter">
+                <a href="#getting-started" ><h1>Getting Started</h1></a>
+                <p>To get started, import Router and specify your views.</p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;Router
+        initial=&quot;signin&quot;
+        {views}
+    /&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+import Router from &quot;svelte-event-router&quot;;
+
+// Views
+import signin from &quot;./views/signin.svelte&quot;;
+import signup from &quot;./views/signup.svelte&quot;;
+
+const views = { 
+    signin, // url.com/#/signin                      
+    signup, // url.com/#/signup                        
+};
+&lt;/script&gt;
+</code></pre>
+
+            </div>
+            <div id="sending-events" class="chapter">
+                <a href="#sending-events" ><h1>Sending Events</h1></a>
+                <p>Events allow you to communicate with a router instance. Events are used to update the current view, or communicate with other services.</p>
+<h2>The Send Method</h2>
+<p>The send method is passed in as a prop to all views as well as exported from the Router component. To update the current router view, send an event that matches the name of one of your views. If a view isn't matched to the event name, the router will stay where it is and nothing will happen.</p>
+<pre><code class="language-bash">send([ Event Name (String) ], [ Optional Payload (Any) ]);
+</code></pre>
+<h3>Within a View</h3>
+<pre><code class="language-html">&lt;button on:click=&quot;{() =&gt; send('signup')}&quot;&gt;Go to Signup&lt;/button&gt;
+
+&lt;script&gt;
+export let send;
+&lt;/script&gt;
+</code></pre>
+<h3>Outside a View</h3>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;Router
+        initial=&quot;signin&quot;
+        bind:send=&quot;{send}&quot;
+        {views}
+    /&gt;
+    &lt;button on:click=&quot;{() =&gt; send('signup')}&quot;&gt;Go to Signup&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+import Router from &quot;svelte-event-router&quot;;
+
+// Views
+import signin from &quot;./views/signin.svelte&quot;;
+import signup from &quot;./views/signup.svelte&quot;;
+
+let send;
+
+const views = { 
+    signin, // url.com/#/signin                      
+    signup, // url.com/#/signup                        
+};
+&lt;/script&gt;
+</code></pre>
+
+            </div>
+            <div id="router-store" class="chapter">
+                <a href="#router-store" ><h1>Router Store</h1></a>
+                <p>Subscribing to the router store allows you take action when certain events occur. The router store updates on page load and whenever an event is sent via the the &quot;send()&quot; method. Like the send method, the router store is also passed in as prop to every view as well as exported to the Router component.</p>
+<pre><code class="language-javascript">{
+    data,        // Payload from the last event.
+    event,       // Name of the last event.
+    _event,      // Two events ago.
+    current,     // Current view. Only updates when view changes.
+    params,      // A JavaScript Map of URL parameters.
+} = $router
+</code></pre>
+<h3>Within a View</h3>
+<pre><code class="language-html">&lt;script&gt;
+export let router;
+&lt;/script&gt;
+</code></pre>
+<h3>Outside a View</h3>
+<pre><code class="language-html">&lt;Router
+    initial=&quot;signin&quot;
+    bind:router=&quot;{router}&quot;
+    {views}
+/&gt;
+
+
+&lt;script&gt;
+import Router from &quot;svelte-event-router&quot;;
+
+// Views
+import signin from &quot;./views/signin.svelte&quot;;
+import signup from &quot;./views/signup.svelte&quot;;
+
+const views = { 
+    signin, // url.com/#/signin                      
+    signup, // url.com/#/signup                        
+};
+
+let router;
+
+// Wait for router to be ready
+$: if($router) {
+    // Code to run on any router update
+}
+&lt;/script&gt;
+</code></pre>
+<h2>Custom event listeners</h2>
+<p>Sometimes events are used to trigger other actions besides updating the view. Here we are sending a &quot;submit&quot; event. Since it doesn't match up with the name of a view, the router won't update the view but it will still update the router store.</p>
+<pre><code class="language-html">&lt;form on:submit=&quot;{() =&gt; send('submit', { user })}&quot;&gt;&lt;/form&gt;
+
+&lt;script&gt;
+export let send;
+&lt;/script&gt;
+</code></pre>
+<pre><code class="language-html">&lt;Router
+    initial=&quot;signin&quot;
+    bind:router=&quot;{router}&quot;
+    {views}
+/&gt;
+
+
+&lt;script&gt;
+import Router from &quot;svelte-event-router&quot;;
+
+// Views
+import signin from &quot;./views/signin.svelte&quot;;
+import signup from &quot;./views/signup.svelte&quot;;
+
+let router;
+
+const views = { 
+    signin, // url.com/#/signin                      
+    signup, // url.com/#/signup                        
+};
+
+const myFunction = (user) =&gt; {  };
+
+// Wait for the router to be ready,
+// run our function if the last event was &quot;submit&quot;,
+// pass in the payload from the last &quot;submit&quot; event.
+$: if($router) {
+    $router.event === &quot;submit&quot; &amp;&amp; myFunction($router.data);
+}
+&lt;/script&gt;
+</code></pre>
+<h2>Consuming URL Parameters</h2>
+<p>The router store searches for any URL parameters and formats them as a JavaScript Map.</p>
+<pre><code class="language-html">&lt;Router
+    initial=&quot;signin&quot;
+    bind:router=&quot;{router}&quot;
+    {views}
+/&gt;
+
+&lt;script&gt;
+import Router from &quot;svelte-event-router&quot;;
+
+// Views
+import signin from &quot;./views/signin.svelte&quot;;
+import signup from &quot;./views/signup.svelte&quot;;
+
+let router;
+
+const views = { 
+    signin, // url.com/#/signin                      
+    signup, // url.com/#/signup                        
+};
+
+const loadPost = (id) =&gt; {  };
+
+// Wait for the router to be ready,
+// check if URL parameter exists,
+// and pass it into our function.
+$: if($router) {
+    $router.params.has(&quot;id&quot;) &amp;&amp; loadPost(params.get(&quot;id&quot;));
+};
+&lt;/script&gt;
+</code></pre>
+<h2>Utilizing &quot;Current&quot;</h2>
+<p>Here's an example of a simple nav that highlights the button corresponding to the active view.</p>
+<pre><code class="language-html">&lt;Router
+    initial=&quot;signin&quot;
+    bind:router=&quot;{router}&quot;
+    bind:send=&quot;{send}&quot;
+    {views}
+/&gt;
+
+&lt;button
+    on:click=&quot;{() =&gt; send('signin')}&quot;
+    style=&quot;text-decoration: {$router.current === 'signin' ? 'underline' : 'none'}&quot;
+&gt;
+Sign In
+&lt;/button&gt;
+&lt;button
+    on:click=&quot;{() =&gt; send('signup')}&quot;
+    style=&quot;text-decoration: {$router.current === 'signup' ? 'underline' : 'none'}&quot;
+&gt;   
+Sign Up
+&lt;/button&gt;
+
+&lt;script&gt;
+import Router from &quot;svelte-event-router&quot;;
+
+// Views
+import signin from &quot;./views/signin.svelte&quot;;
+import signup from &quot;./views/signup.svelte&quot;;
+
+let router;
+let send;
+
+const views = { 
+    signin, // url.com/#/signin                      
+    signup, // url.com/#/signup                        
+};
+&lt;/script&gt;
+</code></pre>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="prism.js"></script>
+</body>
+</html>

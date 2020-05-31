@@ -1,18 +1,36 @@
-<svelte:component this={component} {router} />
+<svelte:component this={component} send={sendEvent} router={sharedData} {...props}/>
 <script>
 import { onMount, createEventDispatcher } from "svelte";
+import { derived, writable } from "svelte/store";
 
 const dispatch = createEventDispatcher();
 
 export let base = "";
 export let initial;
 export let views = {};
+export let props = {};
 
 let _event;
 let event;
 let component;
-let currentName;
-let lastEvent;
+
+const currentName = writable("");
+const lastEvent = writable({});
+
+// I feel like we shouldn't follow the docs and name the derived
+// stores with a "$" since we are inside a .svelte file not .js...idk.
+// Using a "_" instead just to be safe."
+sharedData =
+    derived(
+        [ currentName, lastEvent ],
+        ([ _currentName, { name, data, _event } ], set) => set({
+            data,
+            _event, 
+            event : name,
+            current : _currentName,
+            params  : mapParams() // Capture url params when anything happens
+        }));
+
 
 // Used to test if we are able to match
 // the current url with a component
@@ -30,7 +48,8 @@ const sanitize = (str) => {
 
 const read = () => {
     const start = `#/${base}${base ? "/" :""}`;
-    const hash = window.location.hash;
+    // Ignore url params since sendEvent captures those. 
+    const [ hash ] = window.location.hash.split("?");
     const [ name ] = hash.replace(start, "").split("/");
 
     // // Put it back together
@@ -40,57 +59,62 @@ const read = () => {
         initial = urls.get(newUrl);
     }
 
-    router.send(initial);
+    sendEvent(initial);
 }
 
-const router = {
-    event : {},
-    send  : (name = "", data = {}) => {
-        let url = `#/${base}${base ? "/" : ""}${name}`;
-        
-        sanitize(name);
+const params = () => {
+    const [, params = false ] = window.location.href.split("?");
+    
+    if(!params) {
+        return params;
+    }
 
-        // Send the same event as a svelte event
-        dispatch(name, data);
-        dispatch("event", { name, data });
-        
-        // Test if we have a component for this url
-        if(!urls.has(url)) {
-            component = component;
-            
-            return;
-        }
+    return params;
+};
 
-        _event = router.event.data;
+const mapParams = () => {
+    if(!params()) {
+        return new Map();
+    }
 
-        // Leave existing
-        if(name === currentName) {
-            return component;
-        }
+    const segments = params().split("&");
+    return new Map(segments.map((segment) => segment.split("=")));
+};
 
+const sendEvent = (name = "", data = {}) => {
+    let _event = $lastEvent;
+    let url = `#/${base}${base ? "/" : ""}${name}`;
+
+    $lastEvent = {
+        _event,
+        data,
+        name,
+    };
+
+    sanitize(name);
+    
+    // Test if we have a component for this url
+    if(urls.has(url) && name !== $currentName) {
         // Render new component
         component = views[name];
-        currentName = name;
+        $currentName = name;
+        console.log(`ROUTER: View updated to "${name}"`);
 
         // Add the url to the address bar.
         // Slap the event on the browser history real quick:
         // We do this so that in theory, you could hit the 
         // browser back button and the page would load with 
-        // whatever state it hadthe last time it got an event.
-        history.pushState({
-            _event,
-            data,
-            name,
-        }, name, url);
-
-        // Pull it off the browser history to make it available in component
-        router.event =  history.state;
-    },
-};
+        // whatever state it had the last time it got an event.
+        history.pushState($lastEvent, name, `${url}${params() ? `?${params()}` : ""}`);
+    } else { 
+        console.log(`ROUTER: No view found for event ${name}. Available views:`, Object.keys(views));
+    }
+}
 
 window.onpopstate = () => read();
 
 onMount(() => read());
 
-export const instance = router;
+export const send = sendEvent;
+export const router = sharedData;
 </script>

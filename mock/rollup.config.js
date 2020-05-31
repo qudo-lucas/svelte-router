@@ -6,7 +6,7 @@ import livereload from "rollup-plugin-livereload";
 import json from "@rollup/plugin-json";
 import copy from "rollup-plugin-copy";
 import injectProcessEnv from "rollup-plugin-inject-process-env";
-import scss from "rollup-plugin-scss"
+import scss from "rollup-plugin-scss";
 
 const INPUT_DIR = "src";
 const OUTPUT_DIR = "build";
@@ -33,7 +33,7 @@ export default {
         commonjs(),
         copy({
             targets : [
-                { src : `${INPUT_DIR}/public/**/*`, dest : OUTPUT_DIR },
+                { src : `${INPUT_DIR}/public/**`, dest : OUTPUT_DIR },
             ],
         }),
         scss({
