@@ -21,42 +21,62 @@ const readChapters = new Promise((resolve, reject) => {
     });
 });
 
-// Everything inside title tag
-const title = (html) => html.match(/\<title\>(.*?)\<\/title\>/)[1];
-
-// Everything inside id tag
-const id = (html) => html.match(/\<id\>(.*?)\<\/id\>/)[1];
-
-// Everything after the id tag
-const data = (html) => html.substr(html.indexOf("</id>") + 6);
+// Finds all occurrences of an html tag and it's content
+const tag = (t, html) => html.match(new RegExp(`\<${t}\>(.+?)\<\/${t}\>`, "gi"));
 
 (async () => {
     const chapters = await readChapters;
     const files = await Promise.all(chapters.map((file) => read(`chapters/${file}`)));
     
-    let html = await read("index.html");
+    let template = await read("index.html");
 
     let chaptersHtml = "";
     let navHtml = "";
 
-    files.forEach((current) => {
-        const content = data(current);
-        const markdown = md.render(content);
+    files.forEach((current, idx) => {
+        const id = chapters[idx]
+            .toLowerCase()
+            .split(" ")
+            .join("-");
+
+        let html = md.render(current);
+        const [ h1 ] = tag("h1", html);
+        const [ , title ] = h1.match(/\<h1\>(.*?)\<\/h1\>/);
+        const h2s = tag("h2", html);
+
+        html = html.replace(`<h1>${title}</h1>`,
+            `<a href="#${id}"><h1 id="${id}">${title}</h1></a>`);
+
+        navHtml += `<a href="#${id}">${title}</a>`;
+
+        if(h2s) {
+            h2s.forEach((ref) => {
+                const [ , h2 ] = ref.match(/\<h2\>(.*?)\<\/h2\>/);
+                const h2Id = h2
+                    .toLowerCase()
+                    .split(" ")
+                    .join("-");
+
+                html = html.replace(`<h2>${h2}</h2>`,
+                    `<a href="#${id}-${h2Id}">
+                        <h2 id="${id}-${h2Id}">${h2}</h2>
+                    </a>`);
+
+                navHtml += `<a href="#${id}-${h2Id}" class="sub">${h2}</a>`;
+            });
+        }
 
         chaptersHtml +=  `
-            <div id="${id(current)}" class="chapter">
-                <a href="#${id(current)}" ><h1>${title(current)}</h1></a>
-                ${markdown}
+            <div id="${id}" class="chapter">
+                ${html}
             </div>`;
-
-        navHtml += `<a href="#${id(current)}">${title(current)}</a>`;
     });
 
-    html = html.replace("{chapters}", chaptersHtml);
-    html = html.replace("{nav}", navHtml);
+    template = template.replace("{chapters}", chaptersHtml);
+    template = template.replace("{nav}", navHtml);
 
     await fs.mkdirp(`${__dirname}/build`);
 
-    fs.writeFile(`${__dirname}/build/index.html`, html, () => null);
+    fs.writeFile(`${__dirname}/build/index.html`, template, () => null);
     fs.copy(`${__dirname}/src/public`, `${__dirname}/build`);
 })();

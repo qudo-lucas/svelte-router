@@ -11,14 +11,28 @@
     <main class="main">
         <div class="nav">
             <div class="links">
-                <h4 class="title">CHAPTERS</h4>
-                {nav}
+                <div class="top">
+                    <h3>SVELTE EVENT ROUTER</h3>
+                    <h4 class="title">CHAPTERS</h4>
+                    {nav}
+                </div>
+
+                <div class="footer">
+                    <a class="icon" href="https://github.com/qudo-lucas/svelte-router" target="_blank">
+                        <img src="github.svg" width="100%"/>
+                    </a>
+                    <a class="icon" href="https://twitter.com/qudolucas" target="_blank">
+                        <img src="twitter.svg" width="100%"/>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="chapters">
             <div class="intro">
                 <h1>Svelte Event Router</h1>
                 <p>A simple SPA router that enforces event-driven user interfaces. Your router does a lot for you. Choose a good one.</p>
+                <h2>Why This One</h2>
+                <p>Rather than navigating to a URL to update the view (while this does work), you send events to the router. Event driven development results in well-architected projects that are predictable and less prone to errors.</p>
                 <pre class=" language-bash"><code class=" language-bash">npm install svelte-event-router</code></pre>
             </div>
             {chapters}

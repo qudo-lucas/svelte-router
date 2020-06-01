@@ -1,5 +1,4 @@
-<title>Sending Events</title>
-<id>sending-events</id>
+# Sending Events
 
 Events allow you to communicate with a router instance. Events are used to update the current view, or communicate with other services.
 

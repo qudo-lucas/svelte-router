@@ -5,16 +5,24 @@ html,body {
     font-family: 'Overpass', sans-serif;
     font-size: 16px;
     color: #424242;
+    min-width: 500px;
 }
 
 * { box-sizing: border-box }
 
-h1,h2,h3,h4,p,a,button,a {
+a {
+    appearance: none;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.8);
+    /* font-weight: 400; */
+}
+
+h4,p,button {
     font-weight: 400;
 }
 
 h1,h2,h3 {
-    font-weight: 700;
+    font-weight: 700 !important;
     border-collapse: collapse;
     tab-size: 2;
     box-sizing: inherit;
@@ -26,6 +34,7 @@ h1,h2,h3 {
     margin-top: 0;
 }
 
+
 p {
     font-size: 1.2rem;
     border-collapse: collapse;
@@ -35,11 +44,7 @@ p {
     margin: 1em 0;
 }
 
-a {
-    appearance: none;
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.8);
-}
+
 
 a:active {
     color: inherit;
@@ -58,12 +63,30 @@ a:active {
     min-height: 100%;
     color: white !important;
     background: #666678;
-    padding: 1.75rem;
+    padding: 2rem;
 }
 
 .nav .links {
     position: sticky;
-    top: 1.75rem;
+    top: 2rem;
+    height: 96vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nav .sub {
+    margin-left: 2rem;
+}
+
+.nav .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.nav .footer .icon {
+    width: 40px;
 }
 
 .nav h4 {
@@ -75,7 +98,7 @@ a:active {
     cursor: pointer;
     user-select: none;
     position: relative;
-    padding: 0 0 .8rem 0;
+    padding: 2rem 0 .5rem 0;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
@@ -84,6 +107,7 @@ a:active {
     color: white;
     display: block;
     margin: .5rem 0;
+    opacity: .7;
 }
 
 .intro {

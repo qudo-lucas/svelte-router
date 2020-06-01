@@ -11,20 +11,34 @@
     <main class="main">
         <div class="nav">
             <div class="links">
-                <h4 class="title">CHAPTERS</h4>
-                <a href="#getting-started">Getting Started</a><a href="#sending-events">Sending Events</a><a href="#router-store">Router Store</a>
+                <div class="top">
+                    <h3>SVELTE EVENT ROUTER</h3>
+                    <h4 class="title">CHAPTERS</h4>
+                    <a href="#1-getting-started.md">Getting Started</a><a href="#2-sending-events.md">Sending Events</a><a href="#2-sending-events.md-the-send-method" class="sub">The Send Method</a><a href="#3-listening-for-events.md">Router Store</a><a href="#3-listening-for-events.md-custom-event-listeners" class="sub">Custom event listeners</a><a href="#3-listening-for-events.md-consuming-url-parameters" class="sub">Consuming URL Parameters</a><a href="#3-listening-for-events.md-utilizing-current" class="sub">Utilizing Current</a>
+                </div>
+
+                <div class="footer">
+                    <a class="icon" href="https://github.com/qudo-lucas/svelte-router" target="_blank">
+                        <img src="github.svg" width="100%"/>
+                    </a>
+                    <a class="icon" href="https://twitter.com/qudolucas" target="_blank">
+                        <img src="twitter.svg" width="100%"/>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="chapters">
             <div class="intro">
                 <h1>Svelte Event Router</h1>
                 <p>A simple SPA router that enforces event-driven user interfaces. Your router does a lot for you. Choose a good one.</p>
+                <h2>Why This One</h2>
+                <p>Rather than navigating to a URL to update the view (while this does work), you send events to the router. Event driven development results in well-architected projects that are predictable and less prone to errors.</p>
                 <pre class=" language-bash"><code class=" language-bash">npm install svelte-event-router</code></pre>
             </div>
             
-            <div id="getting-started" class="chapter">
-                <a href="#getting-started" ><h1>Getting Started</h1></a>
-                <p>To get started, import Router and specify your views.</p>
+            <div id="1-getting-started.md" class="chapter">
+                <a href="#1-getting-started.md"><h1 id="1-getting-started.md">Getting Started</h1></a>
+<p>To get started, import Router and specify your views.</p>
 <pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
     &lt;Router
         initial=&quot;signin&quot;
@@ -47,10 +61,12 @@ const views = {
 </code></pre>
 
             </div>
-            <div id="sending-events" class="chapter">
-                <a href="#sending-events" ><h1>Sending Events</h1></a>
-                <p>Events allow you to communicate with a router instance. Events are used to update the current view, or communicate with other services.</p>
-<h2>The Send Method</h2>
+            <div id="2-sending-events.md" class="chapter">
+                <a href="#2-sending-events.md"><h1 id="2-sending-events.md">Sending Events</h1></a>
+<p>Events allow you to communicate with a router instance. Events are used to update the current view, or communicate with other services.</p>
+<a href="#2-sending-events.md-the-send-method">
+                        <h2 id="2-sending-events.md-the-send-method">The Send Method</h2>
+                    </a>
 <p>The send method is passed in as a prop to all views as well as exported from the Router component. To update the current router view, send an event that matches the name of one of your views. If a view isn't matched to the event name, the router will stay where it is and nothing will happen.</p>
 <pre><code class="language-bash">send([ Event Name (String) ], [ Optional Payload (Any) ]);
 </code></pre>
@@ -88,9 +104,9 @@ const views = {
 </code></pre>
 
             </div>
-            <div id="router-store" class="chapter">
-                <a href="#router-store" ><h1>Router Store</h1></a>
-                <p>Subscribing to the router store allows you take action when certain events occur. The router store updates on page load and whenever an event is sent via the the &quot;send()&quot; method. Like the send method, the router store is also passed in as prop to every view as well as exported to the Router component.</p>
+            <div id="3-listening-for-events.md" class="chapter">
+                <a href="#3-listening-for-events.md"><h1 id="3-listening-for-events.md">Router Store</h1></a>
+<p>Subscribing to the router store allows you take action when certain events occur. The router store updates on page load and whenever an event is sent via the the &quot;send()&quot; method. Like the send method, the router store is also passed in as prop to every view as well as exported to the Router component.</p>
 <pre><code class="language-javascript">{
     data,        // Payload from the last event.
     event,       // Name of the last event.
@@ -132,7 +148,9 @@ $: if($router) {
 }
 &lt;/script&gt;
 </code></pre>
-<h2>Custom event listeners</h2>
+<a href="#3-listening-for-events.md-custom-event-listeners">
+                        <h2 id="3-listening-for-events.md-custom-event-listeners">Custom event listeners</h2>
+                    </a>
 <p>Sometimes events are used to trigger other actions besides updating the view. Here we are sending a &quot;submit&quot; event. Since it doesn't match up with the name of a view, the router won't update the view but it will still update the router store.</p>
 <pre><code class="language-html">&lt;form on:submit=&quot;{() =&gt; send('submit', { user })}&quot;&gt;&lt;/form&gt;
 
@@ -171,7 +189,9 @@ $: if($router) {
 }
 &lt;/script&gt;
 </code></pre>
-<h2>Consuming URL Parameters</h2>
+<a href="#3-listening-for-events.md-consuming-url-parameters">
+                        <h2 id="3-listening-for-events.md-consuming-url-parameters">Consuming URL Parameters</h2>
+                    </a>
 <p>The router store searches for any URL parameters and formats them as a JavaScript Map.</p>
 <pre><code class="language-html">&lt;Router
     initial=&quot;signin&quot;
@@ -203,7 +223,9 @@ $: if($router) {
 };
 &lt;/script&gt;
 </code></pre>
-<h2>Utilizing &quot;Current&quot;</h2>
+<a href="#3-listening-for-events.md-utilizing-current">
+                        <h2 id="3-listening-for-events.md-utilizing-current">Utilizing Current</h2>
+                    </a>
 <p>Here's an example of a simple nav that highlights the button corresponding to the active view.</p>
 <pre><code class="language-html">&lt;Router
     initial=&quot;signin&quot;

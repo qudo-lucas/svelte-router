@@ -36,7 +36,7 @@
     "serve:docs": "sirv docs/build",
     "watch-plugin": "rollup -c -w",
     "watch-mock": "npm run watch --prefix mock",
-    "watch-docs": "watch 'npm run build:docs' ./docs",
+    "watch-docs": "watch 'npm run build:docs' ./docs/src",
     "start": "npm run watch-plugin",
     "start:mock": "npm start --prefix mock",
     "start:docs": "concurrently 'npm run watch:docs' 'npm run serve:docs'",

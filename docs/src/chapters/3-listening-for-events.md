@@ -1,5 +1,4 @@
-<title>Router Store</title>
-<id>router-store</id>
+# Router Store
 
 Subscribing to the router store allows you take action when certain events occur. The router store updates on page load and whenever an event is sent via the the "send()" method. Like the send method, the router store is also passed in as prop to every view as well as exported to the Router component.
 
@@ -127,7 +126,7 @@ $: if($router) {
 </script>
 ```
 
-## Utilizing "Current"
+## Utilizing Current
 Here's an example of a simple nav that highlights the button corresponding to the active view.
 ```html
 <Router

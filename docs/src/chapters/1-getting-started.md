@@ -1,5 +1,4 @@
-<title>Getting Started</title>
-<id>getting-started</id>
+# Getting Started
 
 To get started, import Router and specify your views.
 ```html
