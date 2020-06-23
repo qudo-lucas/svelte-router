@@ -20,7 +20,7 @@ const lastEvent = writable({});
 // I feel like we shouldn't follow the docs and name the derived
 // stores with a "$" since we are inside a .svelte file not .js...idk.
 // Using a "_" instead just to be safe."
-sharedData =
+const sharedData =
     derived(
         [ currentName, lastEvent ],
         ([ _currentName, { name, data, _event } ], set) => set({
